@@ -3,8 +3,6 @@ package com.grocery_management.controller;
 import com.grocery_management.service.UserService;
 import com.grocery_management.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.dialect.MySQLDialect;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

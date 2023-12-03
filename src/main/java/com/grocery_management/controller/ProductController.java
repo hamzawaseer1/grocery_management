@@ -2,12 +2,8 @@ package com.grocery_management.controller;
 
 import com.grocery_management.model.Product;
 import com.grocery_management.service.ProductService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +11,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/products")
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     private final ProductService productService;
@@ -24,12 +21,8 @@ public class ProductController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Product>> getAllStores() {
         log.info("request received for getting all products inside controller");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        System.out.println(name);
         List<Product> allProducts = productService.getAllProducts();
         return ResponseEntity.ok(allProducts);
     }

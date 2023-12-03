@@ -3,7 +3,6 @@ package com.grocery_management.service;
 import com.grocery_management.model.Product;
 import com.grocery_management.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +11,15 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<Product> getAllProducts() {
         log.info("request received for getting all products inside service");
-        return productRepository.findAll();
+        return productRepository.findAllOrderedByDescending();
     }
 
     public Product getProductById(Long productId) {

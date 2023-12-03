@@ -1,28 +1,22 @@
 package com.grocery_management.controller;
 
-import com.grocery_management.config.JwtService;
 import com.grocery_management.model.Store;
 import com.grocery_management.service.StoreService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@Data
 @RestController
 @RequestMapping("api/v1/stores")
 public class StoreController {
 
-    @Autowired
-    private StoreService storeService;
+    private final StoreService storeService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public List<Store> getAllStores() {
-        Optional<String> currentUserLogin = JwtService.getCurrentUserLogin();
-        System.out.println(currentUserLogin.get());
         return storeService.getAllStores();
     }
 
